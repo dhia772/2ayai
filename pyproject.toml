@@ -1,15 +1,18 @@
 [project]
-name = "frame"
+name = "atelier-python"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+authors = [
+    { name = "dhia772", email = "mohameddhiaeddine.said@esprit.tn" }
+]
 requires-python = ">=3.14"
 dependencies = [
     "django==5.2.*",
 ]
 
 [project.scripts]
-frame = "frame:main"
+atelier-python = "atelier_python:main"
 
 [build-system]
 requires = ["uv_build>=0.12.17,<0.13.0"]

@@ -1,5 +1,6 @@
 from uuid import uuid4
 from django.db import models
+from django.utils import timezone
 
 
 def generer_reference():
@@ -27,7 +28,7 @@ class Expedition(models.Model):
         max_length=20, choices=STATUT_CHOICES, default="publiee"
     )
     entreprise = models.ForeignKey(
-        "entrepriseA.EntrepriseA",
+        "EntrepriseA.EntrepriseA",
         on_delete=models.CASCADE,
         related_name="expeditions",
     )
@@ -36,3 +37,24 @@ class Expedition(models.Model):
 
     def __str__(self):
         return self.reference
+
+    @classmethod
+    def _generate_reference(cls):
+        annee = timezone.now().strftime("%Y")
+        prefix = f"EXP-{annee}-"
+        dernier = (
+            cls.objects.filter(reference__startswith=prefix)
+            .order_by("reference")
+            .last()
+        )
+        compteur = int(dernier.reference[-5:]) + 1 if dernier else 1
+        if compteur > 99999:
+            raise ValueError("Le compteur a dépassé la limite maximale de 99999.")
+        return f"{prefix}{compteur:05d}"
+
+    def save(self, *args, **kwargs):
+        if not self.reference:
+            self.reference = self._generate_reference()
+        self.full_clean()
+        super().save(*args, **kwargs)
+# Create your models here.

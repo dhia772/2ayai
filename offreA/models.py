@@ -16,17 +16,17 @@ class Offre(models.Model):
     )
     date_proposition = models.DateField(auto_now_add=True)
     expedition = models.ForeignKey(
-        "expeditionA.Expedition",
+        "ExpeditionA.Expedition",
         on_delete=models.CASCADE,
         related_name="offres",
     )
     transporteur = models.ForeignKey(
-        "entrepriseA.EntrepriseA",
+        "EntrepriseA.EntrepriseA",
         on_delete=models.CASCADE,
         related_name="offres",
     )
     vehicule = models.ForeignKey(
-        "vehiculeA.Vehicule",
+        "VehiculeA.Vehicule",
         on_delete=models.CASCADE,
         related_name="offres",
     )
@@ -35,3 +35,4 @@ class Offre(models.Model):
 
     def __str__(self):
         return f"Offre {self.pk} - {self.expedition.reference}"
+# Create your models here.

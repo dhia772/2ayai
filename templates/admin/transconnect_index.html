@@ -1,0 +1,9 @@
+{% extends "admin/index.html" %}
+{% block content %}
+<div class="module" style="padding:16px;margin-bottom:20px;border-left:4px solid #287567">
+<h2>Contrôle des opérations</h2>
+<p>Vérifier les publications, les affectations de véhicules et la cohérence des offres.</p>
+<a href="{% url 'admin:health_check' %}">Ouvrir le tableau de contrôle d’intégrité →</a>
+</div>
+{{ block.super }}
+{% endblock %}

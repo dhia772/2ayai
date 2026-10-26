@@ -1,0 +1,32 @@
+{% extends "admin/base_site.html" %}
+{% block extrastyle %}{{ block.super }}
+<style>
+.health-summary{padding:20px;background:var(--darkened-bg);border-left:5px solid #287567;margin:0 0 24px}
+.health-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,430px),1fr));gap:20px}
+.health-card{border:1px solid var(--hairline-color);border-radius:6px;overflow:hidden;padding:18px;min-width:0}
+.health-card h2{margin-top:0}.health-count{display:inline-block;padding:4px 10px;border-radius:4px;background:#b02d35;color:white}.health-count.ok{background:#237443}
+.health-table{overflow:auto;max-width:100%}.health-card table{width:100%}.health-card p{line-height:1.5}
+@media print{#header,#nav-sidebar,.breadcrumbs,.health-export{display:none}.health-grid{display:block}.health-card{break-inside:avoid;margin-bottom:15px}}
+</style>{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">Accueil</a> › Contrôle d’intégrité</div>{% endblock %}
+{% block content %}
+<div class="health-summary">
+<h2>{{ total }} anomalie{{ total|pluralize }} signalée{{ total|pluralize }} · {{ checks|length }} contrôles</h2>
+<p>Exécution : {{ generated_at|date:"d/m/Y H:i" }}. Contrôles en lecture seule. Un même incident peut apparaître dans plusieurs contrôles.</p>
+<a class="health-export" href="?format=json">Télécharger le résultat JSON</a>
+</div>
+<div class="health-grid">
+{% for check in checks %}
+<section class="health-card">
+<h2>{{ check.title }}</h2>
+<span class="health-count{% if not check.count %} ok{% endif %}">{{ check.count }} résultat{{ check.count|pluralize }}</span>
+<p><strong>Règle :</strong> {{ check.rule }}<br><strong>Scénario :</strong> {{ check.scenario }}</p>
+{% if check.rows %}<div class="health-table"><table>
+<thead><tr>{% for key in check.rows.0.keys %}<th>{{ key }}</th>{% endfor %}</tr></thead>
+<tbody>{% for row in check.rows %}<tr>{% for value in row.values %}<td>{{ value }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+</table></div>
+{% if check.count > 50 %}<p>Les 50 premiers résultats sont affichés.</p>{% endif %}
+{% else %}<p>Aucune anomalie détectée pour ce contrôle.</p>{% endif %}
+</section>{% endfor %}
+</div>
+{% endblock %}

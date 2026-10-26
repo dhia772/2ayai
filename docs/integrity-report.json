@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-10-26T21:36:55.671Z",
+  "total": 5,
+  "checks": [
+    {
+      "key": "expeditions_bloquees",
+      "title": "Expéditions publiées depuis plus de 7 jours",
+      "rule": "Suivi des publications",
+      "scenario": "Une publication oubliée ou une cascade contournée reste publiée.",
+      "count": 1,
+      "rows": [
+        {
+          "reference": "EXP-26-00003",
+          "created_at": "2026-10-17T21:36:54.673Z"
+        }
+      ]
+    },
+    {
+      "key": "transporteurs_sans_flotte",
+      "title": "Transporteurs sans flotte",
+      "rule": "Un transporteur doit disposer de véhicules pour proposer une offre",
+      "scenario": "Inscription incomplète ou suppression de la dernière voiture.",
+      "count": 1,
+      "rows": [
+        {
+          "raison_sociale": "Transport en inscription",
+          "nb_vehicules": 0
+        }
+      ]
+    },
+    {
+      "key": "disponibilite_incoherente",
+      "title": "Véhicules disponibles mais affectés",
+      "rule": "Réservation du véhicule lors de l’acceptation",
+      "scenario": "Une acceptation par update() ne réserve pas le véhicule.",
+      "count": 1,
+      "rows": [
+        {
+          "immatriculation": "DEMO-001"
+        }
+      ]
+    },
+    {
+      "key": "doublons_proposition",
+      "title": "Propositions en double",
+      "rule": "Une proposition active par transporteur et expédition",
+      "scenario": "Import ancien ou base restaurée sans contrainte unique.",
+      "count": 0,
+      "rows": []
+    },
+    {
+      "key": "acceptation_sans_attribution",
+      "title": "Offres acceptées sans attribution cohérente",
+      "rule": "L’acceptation attribue l’expédition",
+      "scenario": "update(statut=\"acceptee\") contourne save().",
+      "count": 1,
+      "rows": [
+        {
+          "id": 1,
+          "expedition__reference": "EXP-26-00001",
+          "expedition__statut": "publiee"
+        }
+      ]
+    },
+    {
+      "key": "propositions_apres_attribution",
+      "title": "Propositions concurrentes non refusées",
+      "rule": "L’acceptation refuse les autres propositions",
+      "scenario": "Une mise à jour SQL ne déclenche pas la cascade de refus.",
+      "count": 1,
+      "rows": [
+        {
+          "id": 2,
+          "expedition__reference": "EXP-26-00001",
+          "transporteur__raison_sociale": "Transport Sud"
+        }
+      ]
+    }
+  ]
+}

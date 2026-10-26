@@ -8,3 +8,12 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Local databases, secrets, generated assets
+*.sqlite3
+*.sqlite3-*
+.env
+.env.*
+!.env.example
+staticfiles/
+.venv/

@@ -58,7 +58,7 @@ python manage.py runserver
 
 Se connecter à `/admin/health-check/`. Le JSON constitue l’export de résultat demandé ; aucune capture fictive n’est fournie. Une exécution sur une base déjà modifiée peut donner d’autres résultats.
 
-La vérification exécutée inclut `check`, `makemigrations --check --dry-run` et la suite de tests Django. Elle vérifie les transitions, cascades, règles de validation, inlines, listes/formulaires admin, export CSV et permissions. La clôture d’une sélection mixte ne traite que les expéditions en cours et libère le véhicule en passant par les méthodes du modèle.
+La vérification exécutée inclut `check`, `makemigrations --check --dry-run` et les 26 tests Django, tous réussis. Elle vérifie les transitions, cascades, règles de validation, inlines, listes/formulaires admin, export CSV et permissions. La clôture d’une sélection mixte ne traite que les expéditions en cours et libère le véhicule en passant par les méthodes du modèle.
 
 ## Retour sur l’assistance IA
 

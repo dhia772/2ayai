@@ -39,6 +39,10 @@ class OffreAdmin(SuiviAdmin):
         ('Suivi', {'fields': ('statut', 'statut_colore', 'date_proposition', 'created_at', 'updated_at')}),
     )
 
+    def has_delete_permission(self, request, obj=None):
+        # Preserve the audit trail and avoid removing an accepted assignment.
+        return False
+
     def get_readonly_fields(self, request, obj=None):
         base = list(super().get_readonly_fields(request, obj))
         return base + ['prix', 'delai_jours', 'expedition', 'transporteur', 'vehicule'] if obj and obj.statut == 'acceptee' else base

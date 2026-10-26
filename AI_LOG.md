@@ -33,3 +33,9 @@ Une IA peut générer une commande SQL valide qui ignore le métier. Les contrai
 Une requête de disponibilité initialement rédigée avec un `exclude()` sur une relation multiple a été remplacée par des conditions positives sur la même relation, pour ne pas ignorer un véhicule réutilisé après une livraison historique.
 
 Les changements de code et cette documentation sont générés avec assistance IA. Aucun travail de revue personnelle par l’étudiant, aucune auto-évaluation des acquis, ni validation de l’enseignant ne sont revendiqués.
+
+## Entrée 2026-10-26 - Revue des suppressions admin
+
+- **Écart identifié pendant la revue :** l’action de suppression standard pourrait supprimer une offre acceptée sans annuler proprement son attribution. Une FK PROTECT protège l’objet référencé, pas la suppression de l’offre elle-même.
+- **Correction :** suppression des offres désactivée dans `OffreAdmin`, pour conserver l’historique ; les statuts contrôlés restent disponibles. Un test vérifie le refus HTTP 403 et l’absence de `delete_selected`.
+- **Traçabilité :** correction assistée par IA, portée par le commit `Review:` faisant référence à cette entrée. Cette revue technique ne représente pas une revue personnelle de l’étudiant.

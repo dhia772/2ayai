@@ -243,3 +243,12 @@ class WorkshopTests(TestCase):
         self.assertTrue(exp.reference.startswith('EXP-'))
         self.assertNotEqual(exp.reference, self.exp.reference)
         self.assertLessEqual(len(exp.reference), 16)
+
+    def test_offer_admin_cannot_delete_assignment(self):
+        self.accepter()
+        modeladmin = admin.site._registry[Offre]
+        self.assertFalse(modeladmin.has_delete_permission(None, self.offre))
+        url = reverse('admin:OffreA_offre_delete', args=[self.offre.pk])
+        self.assertEqual(self.client.post(url, {'post': 'yes'}).status_code, 403)
+        response = self.client.get(reverse('admin:OffreA_offre_changelist'))
+        self.assertNotContains(response, 'value="delete_selected"')

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Véhicules{% endblock %}
+{% block content %}
+<h1>Véhicules</h1>
+<ul class="records">
+{% for vehicule in vehicules %}
+    <li>
+        <a href="{% url 'vehicules:detail' vehicule.pk %}"><strong>{{ vehicule.immatriculation|upper }}</strong></a>
+        · {{ vehicule.get_type_vehicule_display }}
+        <p>{{ vehicule.entreprise.raison_sociale }} · {{ vehicule.capacite_kg }} kg
+            <span class="status">{{ vehicule.disponible|yesno:"Disponible,Indisponible" }}</span></p>
+    </li>
+{% empty %}
+    <li>Aucun véhicule enregistré.</li>
+{% endfor %}
+</ul>
+{% endblock %}

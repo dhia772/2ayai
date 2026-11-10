@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Expéditions publiées{% endblock %}
+{% block content %}
+<h1>Expéditions publiées</h1>
+<ul class="records">
+{% for expedition in expeditions %}
+    <li>
+        <a href="{% url 'expeditions:detail' expedition.reference %}"><strong>{{ expedition.reference }}</strong></a>
+        · {{ expedition.ville_depart }} → {{ expedition.ville_arrivee }}
+        <p>{{ expedition.entreprise.raison_sociale }} · {{ expedition.poids_kg|floatformat:"-2" }} kg · Souhaitée le {{ expedition.date_souhaitee|date:"d/m/Y" }}</p>
+        <p>{{ expedition.description|default:"Aucune description fournie."|truncatewords:15 }}</p>
+    </li>
+{% empty %}
+    <li>Aucune expédition disponible pour le moment.</li>
+{% endfor %}
+</ul>
+{% endblock %}

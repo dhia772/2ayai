@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if object %}Modifier une expédition{% else %}Ajouter une expédition{% endif %}</title>
+</head>
+<body>
+    {% if object %}
+        <h1>Modifier l’expédition {{ object.reference }}</h1>
+    {% else %}
+        <h1>Ajouter une expédition</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    {% if object %}
+        <a href="{% url 'expeditions:detail' object.reference %}">Annuler</a>
+    {% else %}
+        <a href="{% url 'expeditions:liste' %}">Annuler</a>
+    {% endif %}
+</body>
+</html>

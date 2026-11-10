@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Entreprises{% endblock %}
+{% block content %}
+<h1>Entreprises</h1>
+<ul class="records">
+{% for entreprise in entreprises %}
+    <li>
+        <a href="{% url 'entreprises:detail' entreprise.pk %}"><strong>{{ entreprise.raison_sociale }}</strong></a>
+        · {{ entreprise.get_type_entreprise_display }}
+    </li>
+{% empty %}
+    <li>Aucune entreprise enregistrée.</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}{{ entreprise.raison_sociale }}{% endblock %}
+{% block content %}
+<p><a href="{% url 'entreprises:liste' %}">← Entreprises</a></p>
+<h1>{{ entreprise.raison_sociale }}</h1>
+<section class="panel">
+    <span class="status">{{ entreprise.get_type_entreprise_display }}</span>
+    <dl><dt>Adresse professionnelle</dt><dd>{{ entreprise.adresse|linebreaksbr }}</dd></dl>
+</section>
+{% endblock %}

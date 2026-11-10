@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Accueil{% endblock %} · TransConnect</title>
+    <style>
+        body { margin: 0; color: #183039; background: #f4f7f6; font: 1rem/1.6 system-ui, sans-serif; }
+        header { background: #123c40; color: white; }
+        nav, main { max-width: 62rem; margin: auto; padding: 1rem; }
+        nav { display: flex; flex-wrap: wrap; gap: .55rem 1.2rem; align-items: center; }
+        nav a { color: white; }
+        nav .brand { font-weight: 750; margin-right: 1rem; }
+        a { color: #155a70; text-underline-offset: .15em; }
+        .records { list-style: none; padding: 0; display: grid; gap: .8rem; }
+        .records li, .panel { background: white; border: 1px solid #cedbd9; border-radius: .6rem; padding: 1rem 1.25rem; }
+        .records p { margin: .25rem 0 0; }
+        .status { display: inline-block; background: #dbecea; color: #124d47; border-radius: .4rem; padding: .12rem .55rem; }
+        dt { font-weight: 650; } dd { margin: 0 0 .7rem; overflow-wrap: anywhere; }
+        .danger, .error { color: #922633; }
+        button { border: 0; border-radius: .4rem; background: #922633; color: white; padding: .55rem .85rem; font: inherit; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav aria-label="Navigation principale">
+            <a class="brand" href="{% url 'accueil' %}">TransConnect</a>
+            <a href="{% url 'expeditions:liste' %}">Expéditions</a>
+            <a href="{% url 'vehicules:liste' %}">Véhicules</a>
+            <a href="{% url 'offres:liste' %}">Offres</a>
+            <a href="{% url 'entreprises:liste' %}">Entreprises</a>
+            <a href="{% url 'admin:index' %}">Administration</a>
+        </nav>
+    </header>
+    <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

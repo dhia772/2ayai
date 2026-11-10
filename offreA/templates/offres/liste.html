@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Offres{% endblock %}
+{% block content %}
+<h1>Offres</h1>
+<ul class="records">
+{% for offre in offres %}
+    <li>
+        <a href="{% url 'offres:detail' offre.pk %}"><strong>{{ offre.expedition.reference }} · {{ offre.transporteur.raison_sociale }}</strong></a>
+        <p>{{ offre.prix|floatformat:2 }} DT · {{ offre.delai_jours }} jour{{ offre.delai_jours|pluralize }}
+            <span class="status">{{ offre.get_statut_display }}</span></p>
+    </li>
+{% empty %}
+    <li>Aucune offre enregistrée.</li>
+{% endfor %}
+</ul>
+{% endblock %}

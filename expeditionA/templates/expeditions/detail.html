@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ expedition.reference }}{% endblock %}
+{% block content %}
+<p><a href="{% url 'expeditions:liste' %}">← Expéditions publiées</a></p>
+<h1>{{ expedition.reference }}</h1>
+<section class="panel">
+    <h2>{{ expedition.ville_depart }} → {{ expedition.ville_arrivee }}</h2>
+    <span class="status">{{ expedition.get_statut_display }}</span>
+    <dl>
+        <dt>Chargeur</dt><dd><a href="{% url 'entreprises:detail' expedition.entreprise_id %}">{{ expedition.entreprise.raison_sociale }}</a></dd>
+        <dt>Poids</dt><dd>{{ expedition.poids_kg|floatformat:"-2" }} kg</dd>
+        <dt>Date souhaitée</dt><dd>{{ expedition.date_souhaitee|date:"d/m/Y" }}</dd>
+        <dt>Description</dt><dd>{{ expedition.description|default:"Aucune description fournie."|linebreaksbr }}</dd>
+    </dl>
+    {% if actions_demo %}
+        <a href="{% url 'expeditions:modifier' expedition.reference %}">Modifier l’expédition</a>
+    {% endif %}
+    {% if actions_demo and expedition.statut == 'publiee' and not offres %}
+        <a class="danger" href="{% url 'expeditions:supprimer' expedition.reference %}">Supprimer l’expédition</a>
+    {% endif %}
+</section>
+<h2>Offres reçues</h2>
+<ul class="records">
+{% for offre in offres %}
+    <li>
+        <a href="{% url 'offres:detail' offre.pk %}">{{ offre.transporteur.raison_sociale }} · {{ offre.prix|floatformat:2 }} DT</a>
+        <p>{{ offre.vehicule.immatriculation|upper }} · {{ offre.get_statut_display }} · {{ offre.date_proposition|date:"d/m/Y" }}</p>
+    </li>
+{% empty %}
+    <li>Aucune offre pour cette expédition.</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Offre {{ offre.pk }}{% endblock %}
+{% block content %}
+<p><a href="{% url 'offres:liste' %}">← Offres</a></p>
+<h1>Offre {{ offre.pk }}</h1>
+<section class="panel">
+    <span class="status">{{ offre.get_statut_display }}</span>
+    <dl>
+        <dt>Expédition</dt><dd><a href="{% url 'expeditions:detail' offre.expedition.reference %}">{{ offre.expedition.reference }}</a></dd>
+        <dt>Transporteur</dt><dd><a href="{% url 'entreprises:detail' offre.transporteur_id %}">{{ offre.transporteur.raison_sociale }}</a></dd>
+        <dt>Véhicule</dt><dd><a href="{% url 'vehicules:detail' offre.vehicule_id %}">{{ offre.vehicule.immatriculation|upper }}</a></dd>
+        <dt>Prix</dt><dd>{{ offre.prix|floatformat:2 }} DT</dd>
+        <dt>Délai</dt><dd>{{ offre.delai_jours }} jour{{ offre.delai_jours|pluralize }}</dd>
+        <dt>Date de proposition</dt><dd>{{ offre.date_proposition|date:"d/m/Y" }}</dd>
+    </dl>
+    {% if suppressions_demo and offre.statut != 'acceptee' %}
+        <a class="danger" href="{% url 'offres:supprimer' offre.pk %}">Supprimer l’offre</a>
+    {% endif %}
+</section>
+{% endblock %}

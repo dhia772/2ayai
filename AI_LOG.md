@@ -39,3 +39,10 @@ Les changements de code et cette documentation sont générés avec assistance I
 - **Écart identifié pendant la revue :** l’action de suppression standard pourrait supprimer une offre acceptée sans annuler proprement son attribution. Une FK PROTECT protège l’objet référencé, pas la suppression de l’offre elle-même.
 - **Correction :** suppression des offres désactivée dans `OffreAdmin`, pour conserver l’historique ; les statuts contrôlés restent disponibles. Un test vérifie le refus HTTP 403 et l’absence de `delete_selected`.
 - **Traçabilité :** correction assistée par IA, portée par le commit `Review:` faisant référence à cette entrée. Cette revue technique ne représente pas une revue personnelle de l’étudiant.
+
+## Entrée 2026-11-10 - Vues et formulaire d’expédition
+
+- **Outil et demande :** OpenAI Codex, à partir du PDF Views Partie 1 et des indications de cours communiquées ensuite. L’étudiant a demandé les pages du workshop, puis une version des vues d’expédition par classes et un formulaire de création et de modification.
+- **Sortie :** listes et détails pour les quatre applications, routes nommées, confirmations de suppression, `ExpeditionForm`, sélecteur de date et vues Django `CreateView` et `UpdateView`.
+- **Écart assumé :** le PDF Partie 1 présente des vues fonctionnelles. Les vues d’expédition ont ensuite été converties en classes à la demande de l’étudiant, selon l’exemple suivi en cours. Les autres applications conservent leurs vues fonctionnelles.
+- **Corrections :** les exemples de l’autre dépôt utilisaient une classe de modèle et des noms de routes différents. Le projet conserve `Expedition`, l’espace de noms `expeditions`, les validations du modèle et les confirmations de suppression par POST avec CSRF.

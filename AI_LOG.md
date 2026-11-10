@@ -46,3 +46,5 @@ Les changements de code et cette documentation sont générés avec assistance I
 - **Sortie :** listes et détails pour les quatre applications, routes nommées, confirmations de suppression, `ExpeditionForm`, sélecteur de date et vues Django `CreateView` et `UpdateView`.
 - **Écart assumé :** le PDF Partie 1 présente des vues fonctionnelles. Les vues d’expédition ont ensuite été converties en classes à la demande de l’étudiant, selon l’exemple suivi en cours. Les autres applications conservent leurs vues fonctionnelles.
 - **Corrections :** les exemples de l’autre dépôt utilisaient une classe de modèle et des noms de routes différents. Le projet conserve `Expedition`, l’espace de noms `expeditions`, les validations du modèle et les confirmations de suppression par POST avec CSRF.
+
+- **Style du formulaire :** à la demande de l’étudiant, Codex a ajouté une présentation CSS au gabarit HTML commun aux pages d’ajout et de modification.
